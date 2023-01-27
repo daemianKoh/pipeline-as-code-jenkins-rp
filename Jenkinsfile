@@ -43,6 +43,30 @@ pipeline {
             }
         }
 
+		stage('Environment Analysis'){
+			parallel{
+				stage('Printing all Global Variable'){
+					steps{
+						sh """
+						env
+						"""
+					}
+				}
+				
+				stage('Execute Shell'){
+					steps{
+						sh 'echo "Hello Student. Thanks for Keeping up"'
+					}
+				}
+				
+				stage('Print ENV variable'){
+					steps{
+						sh "echo ${APP_ENV}"
+					}
+				}
+			}
+		}
+		
         stage('Code Build') {
             steps {
                  sh 'mvn install -Dmaven.test.skip=true'
